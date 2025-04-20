@@ -38,3 +38,8 @@ Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CS
    restar y además agrego 1 al contador de credito o debito. Luego comparo para saber si el monto de la transacción es más alto que el anterior. Al final de la lectura del archivos CSV o PS hago el display del reporte para poder ver los resultados.
 
 ## Estructura del proyecto:
+
+   IEFBR14: Contiene el JCL para crear el PS usando la utilidad IEFBR14.
+   JCLPROCT: Contiene el JCL para la compilacion del MEMBER fuente Cobol y la ejecución del programa Cobol compilado.
+   PROCTRAN: Contiene el codigo fuente del programa cobol.
+   Resultado: Imagen que contiene el reporte osea el resultado de la ejecución.
