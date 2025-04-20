@@ -34,7 +34,7 @@ Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CS
 ## Enfoque y solución:
 
    Los 3 requerimientos del reporte tienen en común que necesitaras recorrer todos los datos del archivo para resolverlos.
-   Basandome en esa premisa entonces hago una lectura secuencial de todo el archivo CSV o PS, por cada linea de datos exceptuando la primera, se separa los datos y se formatean para poder usarlos luego para el balance final evaluo el tipo de transacción para sumar o 
+   Basandome en esa premisa entonces hago una lectura secuencial del archivo CSV o PS, por cada linea de datos exceptuando la primera, se separa los datos y se formatean para poder usarlos luego para el balance final evaluo el tipo de transacción para sumar o 
    restar y además agrego 1 al contador de credito o debito. Luego comparo para saber si el monto de la transacción es más alto que el anterior. Al final de la lectura del archivos CSV o PS hago el display del reporte para poder ver los resultados.
 
 ## Estructura del proyecto:
