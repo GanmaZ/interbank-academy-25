@@ -1,0 +1,19 @@
+//JALA18D  JOB (123),'JIM',CLASS=A,MSGCLASS=A,MSGLEVEL=(1,1),     
+//             NOTIFY=&SYSUID                                     
+//PLIB     JCLLIB ORDER=(MATE1.PROCLIB)                           
+//*                                                               
+//*  COMPILE A COBOL PROGRAM                                      
+//*                                                               
+//STEP10  EXEC COBOLCL,                                           
+//             COPYLIB=JALA18.COPYLIB,         <= COPYBOOK LIBRARY
+//             LOADLIB=JALA18.LOADLIB,         <= LOAD LIBRARY    
+//             SRCLIB=JALA18.COBOL.SOURCELB,   <= SOURCE LIBRARY  
+//             MEMBER=PROCTRAN                 <= SOURCE MEMBER   
+//*                                               
+//*  RUN A COBOL PROGRAM                          
+//*                                               
+//STEP20   EXEC PGM=PROCTRAN                      
+//STEPLIB  DD  DSN=JALA18.LOADLIB,DISP=SHR        
+//SYSPRINT DD SYSOUT=*                            
+//SYSOUT   DD SYSOUT=*                            
+//INPUT01  DD DSN=JALA18.TRANSACT.DATA,DISP=SHR   
