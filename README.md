@@ -19,7 +19,7 @@ Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CS
 
 1. **Entorno para la ejecución:**  
    Se necesita acceso a un mainframe con Z/OS 3.1 que tenga instalado COBOL 6.4 y la utilidad IEFBR14 para crear el PS de 80 caracteres de largo usando JCL, en este se copiará toda la información del archivo CSV.
-   La utilidad IEFBR14 no es obligatoria ya que existen otras formas de crear un PS en MAINFRAME y tambien otras forma de copiar o subir estos datos al MAINFRAME.
+   La utilidad IEFBR14 no es obligatoria ya que existen otras formas de crear un PS en MAINFRAME y tambien otras forma de copiar o subir estos datos al MAINFRAME, puedes usar el archivo llamado IEFB14 para crear este PS.
    Deberas tener el MEMBER fuente del programa cobol en tu SOURCE LIBRARY con el nombre de PROCTRAN.
 
 3. **Compilacion y ejecución:**
