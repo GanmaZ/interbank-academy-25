@@ -23,7 +23,7 @@ Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CS
    Deberas tener el MEMBER fuente del programa cobol en tu SOURCE LIBRARY con el nombre de PROCTRAN.
 
 3. **Compilacion y ejecución:**
-   Ya en el entorno mainframe deberas hacer SUBMIT al JCL llamado JCLPROCT para que en su primer paso compile el fuente del programa cobol que es el MEMBER llamado PROCTRAN y en el segundo paso ejecute el programa tomando el compilado y el PS creado anteriormente, los 
+    Ya en el entorno mainframe deberas hacer SUBMIT al JCL llamado JCLPROCT para que en su primer paso compile el fuente del programa cobol que es el MEMBER llamado PROCTRAN y en el segundo paso ejecute el programa tomando el compilado y el PS creado anteriormente, los 
     datos ya los debes haber copiado a este PS.
     Probablemente debas de cambiar todo lo que diga JALA18 en los JCL porque hace referencia a el nombre de usuario que tengas en el MAINFRAME.
    
