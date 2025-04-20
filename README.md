@@ -28,7 +28,7 @@ Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CS
    Probablemente debas de cambiar todo lo que diga JALA18 en los JCL porque hace referencia a el nombre de usuario que tengas en el MAINFRAME.
    
 3. **Salida del Programa:**  
-   Ya que en mainframe trabajas directamente en consola el resultado de la ejecución del programa se podra resivar en el spool.
+   Ya que en mainframe trabajas directamente en consola el resultado de la ejecución del programa se podra revisar en el spool.
    La salida que obtuve la podras ver en la imagen Resultado.  
 
 ## Enfoque y solución:
