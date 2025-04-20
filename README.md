@@ -1,6 +1,6 @@
 # Reto Técnico: Procesamiento de Transacciones Bancarias (CLI)
 
-## Objetivo:
+## Introducción:
 
 Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CSV con transacciones bancarias y genere un reporte que incluya:
 
@@ -15,45 +15,23 @@ Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CS
 
 ---
 
-## Instrucciones
+## Instrucciones de ejecución:
 
-1. **Repositorio Base:**  
-   Clona o haz un fork del repositorio base disponible en:  
-   `https://github.com/codeableorg/interbank-academy-25`
+1. **Entorno para la ejecución:**  
+   Se necesita acceso a un mainframe con Z/OS 3.1 que tenga instalado COBOL 6.4 y la utilidad IEFBR14 para crear el PS de 80 caracteres de largo usando JCL, en este se copiará toda la información del archivo CSV.
+   La utilidad IEFBR14 no es obligatoria ya que existen otras formas de crear un PS en MAINFRAME y tambien otras forma de copiar o subir estos datos al MAINFRAME.
+   Deberas tener el MEMBER fuente del programa cobol en tu SOURCE LIBRARY con el nombre de PROCTRAN.
 
-2. **Entrada de Datos:**  
-   La aplicación deberá leer un archivo CSV. Ejemplo de contenido:
+3. **Compilacion y ejecución:**
+   Ya en el entorno mainframe deberas hacer SUBMIT al JCL llamado JCLPROCT para que en su primer paso compile el fuente del programa cobol que es el MEMBER llamado PROCTRAN y en el segundo paso ejecute el programa tomando el compilado y el PS creado anteriormente, los 
+    datos ya los debes haber copiado a este PS.
+    Probablemente debas de cambiar todo lo que diga JALA18 en los JCL porque hace referencia a el nombre de usuario que tengas en el MAINFRAME.
+   
+5. **Salida del Programa:**  
+   Ya que en mainframe trabajas directamente en consola el resultado de la ejecución del programa se podra resivar en el spool.
+   La salida que obtuve la podras ver en la imagen resultado.  
 
-   ```
-   id,tipo,monto
-   1,Crédito,100.00
-   2,Débito,50.00
-   3,Crédito,200.00
-   4,Débito,75.00
-   5,Crédito,150.00
-   ```
-
-3. **Salida del Programa:**  
-   La aplicación debe mostrar el reporte final en la terminal.  
-   Ejemplo de salida:
-
-   ```
-   Reporte de Transacciones
-   ---------------------------------------------
-   Balance Final: 325.00
-   Transacción de Mayor Monto: ID 3 - 200.00
-   Conteo de Transacciones: Crédito: 3 Débito: 2
-   ```
-
-4. **Lenguaje de Programación:**  
-   Utiliza el lenguaje de tu preferencia. Opciones recomendadas:
-
-   - Python
-   - Java
-   - C#
-   - JavaScript (Node.js)
-
-5. **README del Proyecto:**  
+6. **README del Proyecto:**  
    Incluye un archivo `README.md` con la siguiente estructura:
 
    - **Introducción:** Breve descripción del reto y su propósito.
@@ -61,6 +39,6 @@ Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CS
    - **Enfoque y Solución:** Lógica implementada y decisiones de diseño.
    - **Estructura del Proyecto:** Archivos y carpetas principales.
 
-6. **Documentación y Calidad del Código:**
+7. **Documentación y Calidad del Código:**
    - Código bien documentado y fácil de leer.
    - Comentarios explicando pasos clave y lógica del programa.
