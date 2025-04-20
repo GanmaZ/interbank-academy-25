@@ -22,23 +22,19 @@ Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CS
    La utilidad IEFBR14 no es obligatoria ya que existen otras formas de crear un PS en MAINFRAME y tambien otras forma de copiar o subir estos datos al MAINFRAME, puedes usar el archivo llamado IEFB14 para crear este PS.
    Deberas tener el MEMBER fuente del programa cobol en tu SOURCE LIBRARY con el nombre de PROCTRAN.
 
-3. **Compilacion y ejecución:**
+2. **Compilacion y ejecución:**
    Ya en el entorno mainframe deberas hacer SUBMIT al JCL llamado JCLPROCT para que en su primer paso compile el fuente del programa cobol que es el MEMBER llamado PROCTRAN y en el segundo paso ejecute el programa tomando el compilado y el PS creado anteriormente, los 
    datos ya los debes haber copiado a este PS.
    Probablemente debas de cambiar todo lo que diga JALA18 en los JCL porque hace referencia a el nombre de usuario que tengas en el MAINFRAME.
    
-5. **Salida del Programa:**  
+3. **Salida del Programa:**  
    Ya que en mainframe trabajas directamente en consola el resultado de la ejecución del programa se podra resivar en el spool.
    La salida que obtuve la podras ver en la imagen Resultado.  
 
-6. **README del Proyecto:**  
-   Incluye un archivo `README.md` con la siguiente estructura:
+## Enfoque y solución:
 
-   - **Introducción:** Breve descripción del reto y su propósito.
-   - **Instrucciones de Ejecución:** Cómo instalar dependencias y ejecutar la aplicación.
-   - **Enfoque y Solución:** Lógica implementada y decisiones de diseño.
-   - **Estructura del Proyecto:** Archivos y carpetas principales.
+   Los 3 requerimientos del reporte tienen en común que necesitaras recorrer todos los datos del archivo para resolverlos.
+   Basandome en esa premisa entonces hago una lectura secuencial de todo el archivo CSV o PS, por cada linea de datos exceptuando la primera, se separa los datos y se formatean para poder usarlos luego para el balance final evaluo el tipo de transacción para sumar o 
+   restar y además agrego 1 al contador de credito o debito. Luego comparo para saber si el monto de la transacción es más alto que el anterior. Al final de la lectura del archivos CSV o PS hago el display del reporte para poder ver los resultados.
 
-7. **Documentación y Calidad del Código:**
-   - Código bien documentado y fácil de leer.
-   - Comentarios explicando pasos clave y lógica del programa.
+## Estructura del proyecto:
