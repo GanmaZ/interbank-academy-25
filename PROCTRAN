@@ -1,0 +1,131 @@
+       IDENTIFICATION DIVISION.                                
+       PROGRAM-ID. PROCTRAN.                                   
+       AUTHOR.     JIM GUERRERO.                               
+      *********************************************************
+      * PROGRAMA PROCESAMIENTO DE TRANSACCIONES               *
+      *********************************************************
+       ENVIRONMENT DIVISION.                                   
+       INPUT-OUTPUT SECTION.                                   
+       FILE-CONTROL.                                           
+           SELECT DATA-FILE ASSIGN TO INPUT01                  
+             ORGANIZATION IS SEQUENTIAL                        
+             FILE STATUS IS WS-DATA-FS.                        
+       DATA DIVISION.                                          
+       FILE SECTION.                                           
+       FD  DATA-FILE RECORDING MODE IS F.                      
+       01  DATA-FILE-REG PIC X(80).                         
+       WORKING-STORAGE SECTION.                             
+       77  WS-DATA-FS                 PIC XX.               
+       77  WS-EOF                     PIC X(01) VALUE 'N'.  
+       77  WS-FIRST-REG               PIC 9(01) VALUE 1.    
+       01  WS-ID-C                    PIC X(04).            
+       01  WS-TIPO-C                  PIC X(10).            
+       01  WS-MONTO-C                 PIC X(10).            
+       01  WS-MONTO-NUM               PIC 9(04)V99.         
+       01  WS-MONTO-MAYOR             PIC 9(04)V99 VALUE 0. 
+       01  WS-BALANCE-FINAL           PIC S9(07)V99 VALUE 0.
+      *ADORNOS                                              
+       01  WS-ADORNOS.                                      
+         05  WS-ADORNOS-GUIONES PIC X(45) VALUE ALL '-'.    
+      *TITULO REPORTE                                       
+       01  WS-TITULO-REPORTE.                               
+         05  WS-TITULO  PIC X(24)                           
+                          VALUE 'REPORTE DE TRANSACCIONES'. 
+      *CUERPO REPORTE                                       
+      *CUERPO REPORTE BALANCE FINAL                         
+       01 WS-REPORTE-BALANCE-FINAL.                         
+         05  FILLER     PIC X(14) VALUE 'BALANCE FINAL:'.   
+         05  FILLER     PIC X(01).                          
+         05  WS-BALANCE-FINAL-MOSTRAR  PIC Z(07).99.        
+      *CUERPO REPORTE TRANSACCION MAYOR MONTO               
+       01  WS-TRANSACCION-MAYOR-MONTO-REP.                  
+         05 FILLER  PIC X(27)                               
+                        VALUE 'TRANSACCIóN DE MAYOR MONTO:'.
+         05 FILLER  PIC X(01).                              
+         05 FILLER  PIC X(02) VALUE 'ID'.                   
+         05 FILLER  PIC X(01).                                 
+         05 WS-TRANSACCION-ID-MAYOR-MONTO PIC X(04).           
+         05 FILLER  PIC X(01).                                 
+         05 FILLER  PIC X(01) VALUE '-'.                       
+         05 FILLER  PIC X(01).                                 
+         05 WS-TRANSACCION-MAYOR-MONTO PIC X(06).              
+      *CUERPO REPORTE CONTEO TRANSACCIONES                     
+       01  WS-CONTEO-TRANSACCIONES.                            
+         05 FILLER  PIC X(24) VALUE 'CONTEO DE TRANSACCIONES:'.
+         05 FILLER  PIC X(01).                                 
+         05 FILLER  PIC X(08) VALUE 'CREDITO:'.                
+         05 FILLER  PIC X(01).                                 
+         05 WS-CONTEO-CREDITO           PIC 9(03).             
+         05 FILLER  PIC X(01).                                 
+         05 FILLER  PIC X(08) VALUE 'DEBITO:'.                 
+         05 FILLER  PIC X(01).                                  
+         05 WS-CONTEO-DEBITO            PIC 9(03).              
+       PROCEDURE DIVISION.                                      
+      *MAIN                                                     
+           PERFORM PGR-START.                                   
+           PERFORM ITERATION-DATA UNTIL WS-EOF = 'S'.           
+           PERFORM PGR-END.                                     
+           STOP RUN.                                            
+      *100-INICIO                                               
+       PGR-START.                                               
+           DISPLAY '==========================================' 
+           DISPLAY 'PROGRAMA PARA PROCESAMIENTO DE'             
+           DISPLAY 'TRANSACCIONES BANCARIAS'                    
+           DISPLAY '==========================================' 
+           OPEN INPUT DATA-FILE                                 
+           IF WS-DATA-FS IS NOT = 00                        
+              DISPLAY 'NO SE ABRIO CORRECTAMENTE EL ARCHIVO'
+              DISPLAY 'ERROR:' WS-DATA-FS                   
+              STOP RUN                                      
+           END-IF.                                          
+      *150 FIN DEL PROGRAMA                                 
+       PGR-END.                                             
+           CLOSE DATA-FILE.                                 
+      *200 RECORRIDO DEL ARCHIVO DE DATOS                   
+       ITERATION-DATA.                                      
+           READ DATA-FILE                                   
+             AT END                                         
+             PERFORM MOSTRAR-RESULTADOS                     
+             MOVE 'S' TO WS-EOF                             
+             NOT AT END                                     
+             IF WS-FIRST-REG = 1                               
+                ADD 1 TO WS-FIRST-REG                          
+             ELSE                                              
+             PERFORM PROCESAR-LINEA                            
+             PERFORM BALANCE-FINAL                             
+             PERFORM TRANSACCION-MAYOR-MONTO                   
+             END-IF                                            
+           END-READ.                                           
+      *300 PROCESA LA LINEA EN FORMATO CSV                     
+       PROCESAR-LINEA.                                         
+           UNSTRING DATA-FILE-REG DELIMITED BY ','             
+               INTO WS-ID-C, WS-TIPO-C, WS-MONTO-C             
+           END-UNSTRING                                        
+           COMPUTE WS-MONTO-NUM =  FUNCTION NUMVAL(WS-MONTO-C).
+      *400 CALCULO DEL BALANCE FINAL SEGUN TIPO TRANSACCION    
+       BALANCE-FINAL.                                       
+           EVALUATE WS-TIPO-C(1:1)                          
+               WHEN 'D'                                     
+                 SUBTRACT WS-MONTO-NUM FROM WS-BALANCE-FINAL
+                 ADD 1 TO WS-CONTEO-DEBITO                  
+               WHEN 'C'                                     
+                 ADD WS-MONTO-NUM TO WS-BALANCE-FINAL       
+                 ADD 1 TO WS-CONTEO-CREDITO                 
+           END-EVALUATE.                                    
+      *500 VERIFICACION DEL MAYOR MONTO                     
+       TRANSACCION-MAYOR-MONTO.                             
+           IF WS-MONTO-NUM > WS-MONTO-MAYOR                 
+               MOVE WS-MONTO-C                              
+                     TO WS-TRANSACCION-MAYOR-MONTO          
+               MOVE WS-MONTO-NUM TO WS-MONTO-MAYOR          
+               MOVE WS-ID-C                                    
+                     TO WS-TRANSACCION-ID-MAYOR-MONTO          
+           END-IF.                                             
+      *600 MOSTRAR RESULTADOS EN EL SPOOL                      
+       MOSTRAR-RESULTADOS.                                     
+             MOVE WS-BALANCE-FINAL TO WS-BALANCE-FINAL-MOSTRAR 
+             DISPLAY WS-TITULO-REPORTE                         
+             DISPLAY WS-ADORNOS-GUIONES                        
+             DISPLAY WS-REPORTE-BALANCE-FINAL                  
+             DISPLAY WS-TRANSACCION-MAYOR-MONTO-REP            
+             DISPLAY WS-CONTEO-TRANSACCIONES.                  
